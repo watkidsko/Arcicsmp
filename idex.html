@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prototype</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+        }
+        .active-link {
+            position: relative;
+            color: blue;
+            font-weight: bold;
+        }
+        .active-link::before {
+            content: '';
+            position: absolute;
+            left: -20px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-bottom: 10px solid transparent;
+            border-right: 10px solid blue;
+        }
+    </style>
+</head>
+<body class="bg-white text-gray-800">
+    <div class="flex">
+        <nav class="w-1/4 p-4 border-r border-gray-300">
+            <h1 class="text-2xl font-bold mb-4">ARCTIC SMP</h1>
+            <ul>
+                <li class="mb-2">
+                    <a href="#home" class="text-blue-500 hover:underline active-link">Home</a>
+                </li>
+                <li class="mb-2">
+                    <a href="#ranks" class="text-blue-500 hover:underline">Ranks</a>
+                </li>
+                <li class="mb-2">
+                    <a href="#crate-keys" class="text-blue-500 hover:underline">Crate Keys</a>
+                </li>
+                <li class="mb-2">
+                    <a href="#contact" class="text-blue-500 hover:underline">Contact</a>
+                </li>
+            </ul>
+        </nav>
+        <div class="flex-1 p-4">
+            <div id="home" class="p-4 border border-gray-300 rounded-lg mb-4">
+                <h3 class="text-lg font-semibold">Home</h3>
+                <p>Welcome to the Arctic SMP! Explore our community and features.</p>
+            </div>
+            <div id="ranks" class="p-4 border border-gray-300 rounded-lg mb-4 hidden">
+                <h3 class="text-lg font-semibold">Ranks</h3>
+                <p>Learn about the different ranks available in our server.</p>
+            </div>
+            <div id="crate-keys" class="p-4 border border-gray-300 rounded-lg mb-4 hidden">
+                <h3 class="text-lg font-semibold">Crate Keys</h3>
+                <p>Discover how to obtain and use crate keys.</p>
+            </div>
+            <div id="contact" class="p-4 border border-gray-300 rounded-lg mb-4 hidden">
+                <h3 class="text-lg font-semibold">Contact</h3>
+                <p>Get in touch with us for any inquiries.</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="module">
+        const links = document.querySelectorAll('nav a');
+        const sections = document.querySelectorAll('div[id]');
+
+        links.forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                const targetId = link.getAttribute('href').substring(1);
+                
+                sections.forEach(section => {
+                    section.classList.add('hidden');
+                });
+                
+                document.getElementById(targetId).classList.remove('hidden');
+
+                links.forEach(link => {
+                    link.classList.remove('active-link');
+                });
+                link.classList.add('active-link');
+            });
+        });
+    </script>
+</body>
+</html>
